@@ -5,6 +5,10 @@ public class PlayerAttack : MonoBehaviour
     [Header ("References")]
     public Animator swordAnimator;
     public Animator orbAnimator;
+    public GameObject explosionPrefab;
+    public Transform explosionPoint;
+
+
 
     void Update()
     {
@@ -29,22 +33,30 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         //Orb Animations
-        if (Input.GetMouseButtonDown(2)){
+        if (Input.GetMouseButtonDown(1)){
             if(orbAnimator != null){
                 orbAnimator.SetBool("OrbCharge",true);
             }
-
-        if (Input.GetMouseButtonDown(1)){
+        }
+        if (Input.GetMouseButtonDown(0)){
             if(orbAnimator != null){
                 if(orbAnimator.GetBool("OrbCharge") == true){
                     orbAnimator.SetTrigger("OrbChargeAttack");
                     orbAnimator.SetBool("OrbCharge",false);
                 }
-                orbAnimator.SetTrigger("OrbAttack");
+                else if (orbAnimator.GetBool("OrbCharge") == false){
+                    orbAnimator.SetTrigger("OrbAttack");
+                }
+               
             }
         
         }
-        }
+        
        
+    }
+    public void ExplosionTrigger(){
+        if (explosionPrefab != null && explosionPoint != null){
+            Instantiate(explosionPrefab, explosionPoint.position, explosionPoint.rotation);
+        }
     }
 }

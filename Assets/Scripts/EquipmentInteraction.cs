@@ -5,22 +5,27 @@ public class EquipmentInteraction: MonoBehaviour
     [Header ("Interaction Settings")]
     public float interactionDistance = 3f;
     [Header ("References")]
-    public GameObject playerSword;
-    public GameObject playerOrb;
+    //public GameObject playerSword, playerOrb, pedestalSword, pedestalOrb;
+    public GameObject [] playerWeapons;
+    public GameObject [] weaponStructures;
     private Camera mainCam;
+
 
     void Start(){
         mainCam = Camera.main;
-        if(playerSword != null) {
-            playerSword.SetActive(false);
+        if(playerWeapons[0] != null) {
+            playerWeapons[0].SetActive(false);
         }
-        if(playerOrb != null) {
-            playerOrb.SetActive(false);
+        if(playerWeapons[1] != null) {
+            playerWeapons[1].SetActive(false);
         }
     }
     void Update(){
         if (Input.GetKeyDown(KeyCode.E)){
             TryInteract();
+        }
+        if (Input.GetKeyDown(KeyCode.F)){
+            DropItem();
         }
     }
     void TryInteract(){
@@ -28,17 +33,29 @@ public class EquipmentInteraction: MonoBehaviour
         RaycastHit hitInfo;
         if(Physics.Raycast (ray, out hitInfo, interactionDistance)){
             if(hitInfo.collider.CompareTag("SwordPickup")){
-                if(playerOrb.activeInHierarchy == false){
-                    Destroy(hitInfo.collider.gameObject);
-                    playerSword.SetActive(true);
+                if(playerWeapons[1].activeInHierarchy == false){
+                    weaponStructures[0].SetActive(false);
+                    playerWeapons[0].SetActive(true);
+                    
                 }
             }
             if(hitInfo.collider.CompareTag("OrbPickup")){
-                if(playerSword.activeInHierarchy == false){
-                Destroy(hitInfo.collider.gameObject);
-                playerOrb.SetActive(true);
+                if(playerWeapons[0].activeInHierarchy == false){
+                    weaponStructures[1].SetActive(false);
+                    playerWeapons[1].SetActive(true);
+                    
                 }
             }
         }
+    }
+    void DropItem(){
+       foreach (GameObject weapon in playerWeapons){
+        if (weapon != null){
+            foreach (GameObject weaponStruct in weaponStructures){
+                weaponStruct.SetActive(true);
+                weapon.SetActive(false);
+            }
+        }
+       }
     }
 }
