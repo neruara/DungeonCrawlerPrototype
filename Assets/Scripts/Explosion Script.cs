@@ -15,10 +15,5 @@ public class AnimationEventManager : MonoBehaviour
             Instantiate(explosionPrefab, explosionPoint.position, explosionPoint.rotation);
             Destroy (createdExplosion, 2f);
         }
-        else
-        {
-
-            Debug.LogWarning("Dikkat: Patlama efekti veya cikis noktasi (Transform) atanmamis!");
-        }
     }
 }
