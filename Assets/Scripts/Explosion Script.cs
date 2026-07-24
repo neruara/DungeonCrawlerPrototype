@@ -11,7 +11,9 @@ public class AnimationEventManager : MonoBehaviour
 
         if (explosionPrefab != null && explosionPoint != null)
         {
+            GameObject createdExplosion = 
             Instantiate(explosionPrefab, explosionPoint.position, explosionPoint.rotation);
+            Destroy (createdExplosion, 2f);
         }
         else
         {
