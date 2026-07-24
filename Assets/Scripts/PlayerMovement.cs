@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform playerCamera;
 
     [Header ("Jumping")]
-    public float jumpForce = 5f;
+    public float jumpForce = 8f;
+    public float gravityMultiplier = 2.5f;
     public Transform groundCheck;
     public float groundDistance= 0.4f;
     public LayerMask groundMask;
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentHorizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         float smoothRate = (movement.magnitude > 0) ? acceleration : deceleration;
         Vector3 smoothedVelocity = Vector3.Lerp(currentHorizontalVelocity, targetVelocity, smoothRate * Time.fixedDeltaTime);
+        rb.AddForce(Physics.gravity * (gravityMultiplier - 1f), ForceMode.Acceleration);
         rb.linearVelocity = new Vector3(smoothedVelocity.x, rb.linearVelocity.y, smoothedVelocity.z);
     }
 }

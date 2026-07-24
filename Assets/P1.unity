@@ -4035,7 +4035,7 @@ MonoBehaviour:
   playerCamera: {fileID: 666829816}
   jumpForce: 5
   groundCheck: {fileID: 1190274617}
-  groundDistance: 0.4
+  groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 8
